@@ -1,0 +1,317 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <style>
+      #customer-query-form {
+          max-width: 400px;
+          margin: 0 auto;
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+    
+      h1 {
+          text-align: center;
+          color: #333333;
+          margin-bottom: 20px;
+      }
+    
+      label {
+          font-weight: bold;
+      }
+    
+      select,
+      input[type="text"],
+      textarea {
+          width: 100%;
+          padding: 8px;
+          border-radius: 3px;
+          border: 1px solid #cccccc;
+          margin-bottom: 10px;
+      }
+    
+      input[type="submit"] {
+          background-color: #4caf50;
+          color: #ffffff;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+      }
+    
+      input[type="submit"]:hover {
+          background-color: #45a049;
+      }
+    
+      .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 20px;
+          color: #aaaaaa;
+          cursor: pointer;
+      }
+    </style>
+    
+        <style>
+          .success_background {
+            
+            background-image: url("/static/app/images/banner/ssm.jpg");
+                background-size: cover;
+                background-position: center;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+          }
+       .success-message {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: #e6f7ff;
+                border: 1px solid #b3d8ff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                animation: showSuccessMessage 1s forwards;
+            }
+    
+            @keyframes showSuccessMessage {
+                0% {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+            
+            .success-message p {
+                margin: 0;
+                text-align: center;
+            }
+    
+            .success-message a {
+                display: block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+                transition: background-color 0.3s;
+            }
+    
+            .success-message a:hover {
+                background-color: #45a049;
+            }
+    
+          .fixed-button {
+          position: fixed;
+          bottom: 20px; /* adjust as needed */
+          left: 20px; /* adjust as needed */
+          z-index: 9999; /* set a high value to bring it to the front */
+          padding: 10px 20px;
+          background-color: #FFC107;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          transition: background-color 0.3s ease;
+        }
+    
+        .fixed-button:hover {
+          background-color: #FFA000;
+        }
+    
+        .hidden-form {
+          display: none;
+          position: fixed;
+          bottom: 80px; /* adjust as needed */
+          left: 20px; /* adjust as needed */
+          z-index: 9998; /* set a high value to bring it to the front */
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 16px;
+          color: #888;
+          cursor: pointer;
+        }
+    
+        </style>
+        <!-- <script>
+          function toggleForm() {
+            var form = document.getElementById("customer-query-form");
+            if (form.style.display === "none" || form.style.display === "") {
+            form.style.display = "block";
+          } else {
+            form.style.display = "none";
+          }
+          //form.style.display = form.style.display === "none" ? "block" : "none";
+          }
+        </script> -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!--Owl Carousel CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+
+    <!--FontAwesome CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+
+
+    <title>FERTIZO | {% block title %} {% endblock title %} </title>
+  </head>
+  <body>
+    <style>
+      #nav1{
+        background-color: rgb(0, 0, 0);
+      }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primar"id ="nav1">
+     <div class="container">
+       <a class="navbar-brand" href="/">
+        <img src="{% static 'app/images/banner/l2.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+  FERTIZO</a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+           <li class="nav-item">
+             <a class="nav-link active" aria-current="page" href="/">Home</a>
+           </li>
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle text-white" href="#" id="agroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Products
+             </a>
+             <ul class="dropdown-menu" aria-labelledby="agroDropdown">
+               <li><a class="dropdown-item" href="{% url 'fertilizer' %}">Fertilizer</a></li>
+               <li><a class="dropdown-item" href="{% url 'pesticide' %}">Pesticide</a></li>
+               <li><a class="dropdown-item" href="{% url 'seed' %}">Seeds</a></li>
+
+             </ul>
+           </li>
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle text-white" href="#" id="irriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Irrigation
+             </a>
+             <ul class="dropdown-menu" aria-labelledby="irriDropdown">
+               <li><a class="dropdown-item" href="{% url 'splinker' %}">Splinker</a></li>
+               <li><a class="dropdown-item" href="#">Pipe</a></li>
+             </ul>
+           </li>
+         </ul>
+         <form class="d-flex">
+           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+           <button class="btn btn-outline-warning" type="submit"><img src="{% static 'app/images/banner/se2.png' %}" width="20" height="20" class="d-inline-block align-top" alt=""></button>
+         </form>
+         <div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if request.user.is_authenticated %}
+           <li class="nav-item dropdown mx-2">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{request.user.username|capfirst}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+                <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                {% if user.is_authenticated and not user.is_superuser %}<li><a class="dropdown-item" href="{% url 'your_queries' %}">Your Queries</a></li>{% endif %}
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+            <li class="nav-item mx-2">
+              <a href="{% url 'showcart' %}" class="nav-link text-white"><span class="badge bg-danger">{{totalitem}}</span> Cart </a>
+            </li>
+            {% else %}
+            <li class="nav-item mx-2">
+             <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
+            </li>
+            <li class="nav-item mx-2">
+             <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+            </li>
+            {% endif %}
+          </ul>
+          {% if user.is_authenticated and not user.is_superuser %}
+          <button class="fixed-button" onclick="toggleForm()">Raise your concern!</button>
+          {% endif %}
+          <form id="customer-query-form" method="POST" action="{% url 'submit_query' %}" class="hidden-form">
+            {% csrf_token %}
+            <span class="close-button" onclick="toggleForm()">&#10005;</span>
+            <h1>Customer Query</h1>
+            
+            <label for="company">Company:</label>
+            <select id="company" name="company" required>
+              <option value="">--None--</option>
+              <option value="cfl">CFL</option>
+              <option value="ngst">NGST</option>
+              <option value="ccl">CCL</option>
+              <option value="sta">STA</option>
+              <option value="fpa">FPA</option>
+            </select><br><br>
+        
+            <label for="short_description">Short Description:</label>
+            <input type="text" id="short_description" name="short_description" required><br><br>
+        
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+        
+            <input type="submit" value="Submit">
+          </form>
+         </div>
+       </div>
+     </div>
+    </nav>
+    {% block banner_slider %} {% endblock banner_slider %}
+    {% block livesale %} {% endblock livesale %}
+    {% block main-content %} {% endblock main-content %}
+
+    {% block payment-gateway %} {% endblock payment-gateway %}
+
+    {% if success_message %}
+    <div class = "success_background">
+    <div class="success-message">
+        <div>{{ success_message }}</div>
+        <a href="{% url 'home' %}">Go to Home</a>
+        </div>
+        </div>
+    {% endif %}
+
+    <!-- Start Footer -->
+    <footer class="container-fluid bg-dark text-center p-2 mt-5">
+      <script src="//code.tidio.co/crdbhcnnswpiaetbdwrwde9mem8btjm1.js" async></script>
+        <small class="text-white">Copyright &copy; 2023 || Designed By Pratik Narkhede || </small>
+        <img src="{% static 'app/images/payment.png' %}" alt="" srcset="" class="img-fluid" height="2px">
+    </footer> <!-- End Footer -->
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'app/js/all.min.js' %}"></script>
+    <script src="{% static 'app/js/myscript.js' %}"></script>
+  </body>
+</html>

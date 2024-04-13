@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-...your-integrity-hash... " crossorigin="anonymous" />
+
+<style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th.highlight,
+td.highlight {
+  background-color: lightgreen;
+}
+  
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+  </div>
+  <h1>All your Queries</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Sr. No.</th>
+        <th>Username</th>
+        <th>Company</th>
+        <th>State</th>
+        <th>Short Description</th>
+        <th>Description</th>
+        <th>Solution</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for incident in incidents %}
+      <tr>
+        <td>{{ incident.i }}</td>
+        <td>{{ incident.u_username }}</td>
+        <td>{{ incident.category }}</td>
+        <td>{{ incident.state }}</td>
+        <td>{{ incident.short_description }}</td>
+        <td>{{ incident.description }}</td>
+        <td class="highlight">{{ incident.u_solution }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock main-content %}

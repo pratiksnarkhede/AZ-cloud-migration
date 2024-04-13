@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: pratik0078/az-cloud-migration:_latest_
+        image: acrisgreat123.azurecr.io/az-cloud-migration:_latest_
         resources:
           limits:
             memory: "128Mi"
@@ -26,9 +26,9 @@ kind: Service
 metadata:
   name: myapp
 spec:
+  type: LoadBalancer
   selector:
     app: myapp
   ports:
   - port: 80
     targetPort: 8000
-
